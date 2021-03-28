@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod
  * Mock Service
  */
 @Controller
-class BookingController {
+class PrBookingController {
     @Autowired
-    val bookingService: BookingService? = null
+    val prBookingService: PrBookingService? = null
 
     @RequestMapping(value = ["/api/serviceProvider/serviceBooking/{bookingId}"], method = [RequestMethod.GET])
     fun checkBookingStatus(@PathVariable("bookingId") bookingId: Long): ServiceProviderResponse {
 
         val bookingStatus =
-            bookingService?.getBookingStatus(ServiceProviderHeader("3", bookingId = bookingId, currentWizardStep = 10))
+            prBookingService?.getBookingStatus(ServiceProviderHeader("3", bookingId = bookingId, currentWizardStep = 10))
 
         return ServiceProviderResponse(
             ServiceProviderHeader("3", bookingId = bookingId, currentWizardStep = 12, bookingStatus = bookingStatus),
@@ -45,7 +45,7 @@ class BookingController {
 
     @RequestMapping(value = ["/api/serviceProvider/serviceBooking/{bookingId}"], method = [RequestMethod.DELETE])
     fun cancelBooking(@PathVariable("bookingId") bookingId: Long): ServiceProviderResponse {
-        bookingService?.cancelBooking(bookingId)
+        prBookingService?.cancelBooking(bookingId)
 
         return ServiceProviderResponse(
             ServiceProviderHeader("3", bookingId = bookingId, currentWizardStep = 12),

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 import kotlin.random.Random
 
 @Service
-class ElementsService {
+class PrElementsService {
     @Qualifier("bookingRepository")
     @Autowired
     private val prBookingRepository: PrBookingRepository? = null

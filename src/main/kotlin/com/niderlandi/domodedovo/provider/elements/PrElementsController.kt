@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
-class ElementsController {
+class PrElementsController {
     @Autowired
-    val elementsService: ElementsService? = null
+    val prElementsService: PrElementsService? = null
 
     @RequestMapping(
         value = ["/api/serviceProvider/bookingElements"], method = [RequestMethod.POST], consumes = ["application/json"]
@@ -29,23 +29,23 @@ class ElementsController {
                 null
             }
 
-        assert(elementsService != null)
+        assert(prElementsService != null)
 
-        val validate = elementsService!!.validate(serviceProviderHeader, serviceFormPage)
+        val validate = prElementsService!!.validate(serviceProviderHeader, serviceFormPage)
 
         return when (validate.first) {
             ValidationStatus.OK -> {
                 if (serviceFormPage == null) {
-                    serviceProviderHeader.bookingId = elementsService!!.generateBookingId()
-                    elementsService!!.storeBookingElements(serviceProviderHeader, serviceFormPage)
+                    serviceProviderHeader.bookingId = prElementsService!!.generateBookingId()
+                    prElementsService!!.storeBookingElements(serviceProviderHeader, serviceFormPage)
                 }
 
                 serviceProviderHeader.bookingStatus =
-                    elementsService!!.prebookService(serviceProviderHeader, serviceFormPage).key
+                    prElementsService!!.prebookService(serviceProviderHeader, serviceFormPage).key
 
-                val newPage = elementsService!!.prepareNextBookingElements(serviceProviderHeader, serviceFormPage)
+                val newPage = prElementsService!!.prepareNextBookingElements(serviceProviderHeader, serviceFormPage)
 
-                val bookingFee = elementsService!!.calculateBookingFee(serviceProviderHeader)
+                val bookingFee = prElementsService!!.calculateBookingFee(serviceProviderHeader)
 
                 ServiceProviderResponse(serviceProviderHeader, newPage, "", bookingFee, "")
             }

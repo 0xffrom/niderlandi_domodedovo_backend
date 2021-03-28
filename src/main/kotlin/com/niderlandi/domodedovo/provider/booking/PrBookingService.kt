@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
 @Service
-class BookingService {
+class PrBookingService {
     @Qualifier("bookingRepository")
     @Autowired
-    private val bookingRepository: BookingRepository? = null
+    private val prBookingRepository: PrBookingRepository? = null
 
     fun getBookingStatus(serviceProviderHeader: ServiceProviderHeader): Int {
-        val booking = bookingRepository?.findById(serviceProviderHeader.bookingId)
+        val booking = prBookingRepository?.findById(serviceProviderHeader.bookingId)
 
         if (booking != null && booking.isPresent) {
             return booking.get().bookingStatus
@@ -26,7 +26,7 @@ class BookingService {
 
     fun registerBooking(bookingId: Long): Int {
         return try {
-            bookingRepository?.save(Booking(bookingId, BookingStatus.REGISTERED.key))
+            prBookingRepository?.save(Booking(bookingId, BookingStatus.REGISTERED.key))
 
             BookingStatus.REGISTERED.key
         } catch (e: Exception) {
@@ -35,10 +35,10 @@ class BookingService {
     }
 
     fun cancelBooking(bookingId: Long): Int {
-        val booking = bookingRepository?.findById(bookingId)
+        val booking = prBookingRepository?.findById(bookingId)
 
         if (booking != null && booking.isPresent) {
-            bookingRepository?.save(booking.get().apply {
+            prBookingRepository?.save(booking.get().apply {
                 bookingStatus = BookingStatus.CANCELED.key
             })
 

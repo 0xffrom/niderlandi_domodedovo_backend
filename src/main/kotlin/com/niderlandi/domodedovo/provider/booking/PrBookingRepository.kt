@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository
 
 @EnableJpaRepositories
 @Repository("bookingRepository")
-interface BookingRepository : CrudRepository<Booking, Long> {
+interface PrBookingRepository : CrudRepository<Booking, Long> {
 
 }

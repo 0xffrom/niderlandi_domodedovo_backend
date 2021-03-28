@@ -33,7 +33,6 @@ class MockElement {
                 valueDefinition = "Прилёт;Вылет",
                 value = "",
                 contentValue = "Направление:",
-                errorText = "Вы забыли выбрать направление",
                 contentCategory = null,
                 contentKey = "DIRECTION_SELECT_LIST"
             ),
@@ -42,7 +41,6 @@ class MockElement {
                 elementType = ElementType.date,
                 value = "",
                 contentValue = "Дата:",
-                errorText = "Вы забыли выбрать дату",
                 contentCategory = ContentCategory.date
             ),
         ),
@@ -57,7 +55,6 @@ class MockElement {
                 elementType = ElementType.selectList,
                 valueDefinition = "DP186;DP240;SP432;SP450",
                 contentValue = "Выберите номер рейса",
-                errorText = "Вы забыли выбрать номер рейса",
                 contentCategory = ContentCategory.flightNr,
                 contentKey = "departure"
             ),
@@ -66,7 +63,6 @@ class MockElement {
                 elementType = ElementType.text,
                 valueDefinition = "Терминал А;Терминал B;Терминал С",
                 contentValue = "Выберите место встречи:",
-                errorText = "Вы забыли выбрать место встречи",
                 contentKey = "departure",
                 contentCategory = null
             ),
@@ -75,7 +71,6 @@ class MockElement {
                 elementType = ElementType.time,
                 value = "Время",
                 contentValue = "Укажите время встречи:",
-                errorText = "Вы забыли выбрать время встречи",
                 contentKey = "departure",
                 contentCategory = ContentCategory.time
             ),
@@ -91,7 +86,6 @@ class MockElement {
                 elementType = ElementType.selectList,
                 valueDefinition = "DP180;DP230;SP424;SP440",
                 contentValue = "Выберите номер рейса",
-                errorText = "Вы забыли выбрать номер рейса",
                 contentCategory = ContentCategory.flightNr,
                 contentKey = "arrival"
             )
@@ -106,14 +100,12 @@ class MockElement {
                 id = 0,
                 elementType = ElementType.text,
                 contentValue = "Введите Ваше имя",
-                errorText = "Вы забыли ввести имя",
                 contentCategory = ContentCategory.firstName,
             ),
             ServiceElement(
                 id = 1,
                 elementType = ElementType.text,
                 contentValue = "Введите Вашу фамилию",
-                errorText = "Вы забыли ввести фамилию",
                 contentCategory = ContentCategory.familyName,
             ),
             ServiceElement(
@@ -121,7 +113,6 @@ class MockElement {
                 elementType = ElementType.selectList,
                 valueDefinition = "Особенность1;Особенность2;Особенность3",
                 contentValue = "Укажите особенности:",
-                errorText = "Вы забыли указать Ваши особенности",
                 contentCategory = null,
             ),
             ServiceElement(
@@ -129,7 +120,6 @@ class MockElement {
                 elementType = ElementType.selectList,
                 valueDefinition = "ТипТранспорта1;ТипТранспорта2;ТипТранспорта3",
                 contentValue = "Укажите тип транспорта:",
-                errorText = "Вы забыли указать Ваш тип транспорта",
                 contentCategory = null,
             ),
         ),
@@ -143,18 +133,14 @@ class MockElement {
                 id = 0,
                 elementType = ElementType.text,
                 contentValue = "Введите Ваш телефон",
-                errorText = "Вы забыли ввести телефон",
                 contentCategory = ContentCategory.tel,
             ),
             ServiceElement(
                 id = 0,
                 elementType = ElementType.text,
                 contentValue = "Введите Ваш Email",
-                errorText = "Вы забыли ввести email",
                 contentCategory = ContentCategory.email,
             ),
         ),
     )
-
-
 }
