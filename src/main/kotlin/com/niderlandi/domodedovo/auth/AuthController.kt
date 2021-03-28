@@ -2,6 +2,7 @@ package com.niderlandi.domodedovo.auth
 
 import com.niderlandi.domodedovo.jwt.JwtService
 import com.niderlandi.domodedovo.refresh.RefreshTokenService
+import com.niderlandi.domodedovo.telephone.TelephoneService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

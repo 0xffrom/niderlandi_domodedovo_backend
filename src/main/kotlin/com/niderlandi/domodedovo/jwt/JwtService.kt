@@ -16,10 +16,7 @@ import java.time.Instant
 import java.util.*
 
 @Service
-class JwtService(
-    @Value("\${jwt.key}") val secretKey: String,
-    @Value("\${jwt.access.min}") val minutes: Long
-) {
+class JwtService{
     private val logger: Logger = LoggerFactory.getLogger(JwtService::class.java)
 
     @Autowired
@@ -30,6 +27,8 @@ class JwtService(
          * Подпись для токена.
          */
         private const val ISSUER = "Domodedovo"
+        private const val secretKey: String = "dasda"
+        private const val minutes : Long = 120
     }
 
     fun createAccessToken(user: User): String {

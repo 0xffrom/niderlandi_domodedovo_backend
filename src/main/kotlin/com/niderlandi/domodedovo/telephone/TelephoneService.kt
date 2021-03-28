@@ -1,4 +1,4 @@
-package com.niderlandi.domodedovo.auth
+package com.niderlandi.domodedovo.telephone
 
 import org.springframework.stereotype.Service
 
