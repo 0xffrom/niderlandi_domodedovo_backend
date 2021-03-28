@@ -7,7 +7,7 @@ import com.niderlandi.domodedovo.domain.data.enums.BookingStatus
 import com.niderlandi.domodedovo.domain.data.enums.Status
 import com.niderlandi.domodedovo.domain.data.enums.ValidationStatus
 import com.niderlandi.domodedovo.domain.entity.Booking
-import com.niderlandi.domodedovo.provider.booking.BookingRepository
+import com.niderlandi.domodedovo.provider.booking.PrBookingRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
@@ -17,7 +17,7 @@ import kotlin.random.Random
 class ElementsService {
     @Qualifier("bookingRepository")
     @Autowired
-    private val bookingRepository: BookingRepository? = null
+    private val prBookingRepository: PrBookingRepository? = null
 
     fun validate(
         serviceProviderHeader: ServiceProviderHeader,
@@ -58,20 +58,20 @@ class ElementsService {
     fun storeBookingElements(serviceProviderHeader: ServiceProviderHeader, serviceFormPage: ServiceFormPage?) {
         val id = serviceProviderHeader.bookingId
 
-        when (bookingRepository == null) {
+        when (prBookingRepository == null) {
             true -> Status.ERROR
             false -> {
-                bookingRepository.save(Booking(id))
+                prBookingRepository.save(Booking(id))
                 Status.OK
             }
         }
     }
 
     fun generateBookingId(): Long {
-        if (bookingRepository == null || bookingRepository.count() == 0L)
+        if (prBookingRepository == null || prBookingRepository.count() == 0L)
             return 0
 
-        return bookingRepository.findAll().last()!!.id + 1
+        return prBookingRepository.findAll().last()!!.id + 1
     }
 
     companion object {
