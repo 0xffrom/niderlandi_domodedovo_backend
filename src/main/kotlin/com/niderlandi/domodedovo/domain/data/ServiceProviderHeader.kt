@@ -1,4 +1,4 @@
-package com.niderlandi.domodedovo.data
+package com.niderlandi.domodedovo.domain.data
 
 data class ServiceProviderHeader(
     val serviceID : String,

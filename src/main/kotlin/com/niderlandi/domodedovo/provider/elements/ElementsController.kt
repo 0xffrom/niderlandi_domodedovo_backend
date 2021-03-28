@@ -1,38 +1,45 @@
-package com.otherapi.service.elements
+package com.niderlandi.domodedovo.provider.elements
 
-import com.niderlandi.domodedovo.data.ServiceFormPage
-import com.niderlandi.domodedovo.data.ServiceProviderHeader
-import com.niderlandi.domodedovo.data.ServiceProviderResponse
-import com.otherapi.service.ValidationStatus
-import com.otherapi.service.booking.Booking
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.niderlandi.domodedovo.domain.data.ServiceFormPage
+import com.niderlandi.domodedovo.domain.data.ServiceProviderHeader
+import com.niderlandi.domodedovo.domain.data.ServiceProviderResponse
+import com.niderlandi.domodedovo.domain.data.enums.ValidationStatus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class ElementsController {
     @Autowired
     val elementsService: ElementsService? = null
 
+    @RequestMapping(
+        value = ["/api/serviceProvider/bookingElements"], method = [RequestMethod.POST], consumes = ["application/json"]
+    )
+    fun getNextBookingElements(@RequestBody json: Map<String, String>): ServiceProviderResponse {
+        val serviceProviderHeader: ServiceProviderHeader =
+            jacksonObjectMapper().readValue(json["serviceProviderHeader"], ServiceProviderHeader::class.java)
+        val serviceFormPage: ServiceFormPage? =
+            if (json.containsKey("serviceFormPage")) {
+                jacksonObjectMapper().readValue(json["serviceFormPage"], ServiceFormPage::class.java)
+            } else {
+                null
+            }
 
-    @RequestMapping(value = ["/bookingElements"], method = [RequestMethod.DELETE])
-    fun getNextBookingElements(
-        @RequestParam serviceProviderHeader: ServiceProviderHeader,
-        @RequestParam serviceFormPage: ServiceFormPage? = null
-    ): ServiceProviderResponse {
         assert(elementsService != null)
 
         val validate = elementsService!!.validate(serviceProviderHeader, serviceFormPage)
 
         return when (validate.first) {
             ValidationStatus.OK -> {
-                if(serviceFormPage != null && serviceProviderHeader.bookingId == Booking.DEFAULT_ID){
+                if (serviceFormPage == null) {
                     serviceProviderHeader.bookingId = elementsService!!.generateBookingId()
-
                     elementsService!!.storeBookingElements(serviceProviderHeader, serviceFormPage)
                 }
+
                 serviceProviderHeader.bookingStatus =
                     elementsService!!.prebookService(serviceProviderHeader, serviceFormPage).key
 

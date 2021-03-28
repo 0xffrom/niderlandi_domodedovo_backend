@@ -1,4 +1,4 @@
-package com.niderlandi.domodedovo.data
+package com.niderlandi.domodedovo.domain.data
 
 class ServiceForm(
     val id: Long,

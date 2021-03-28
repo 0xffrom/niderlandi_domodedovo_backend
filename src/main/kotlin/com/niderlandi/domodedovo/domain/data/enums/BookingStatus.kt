@@ -1,6 +1,6 @@
-package com.niderlandi.domodedovo.data
+package com.niderlandi.domodedovo.domain.data.enums
 
-enum class BookingStatus(val key: Int){
+enum class BookingStatus(val key: Int) {
     UNDEFINED(100),
     NON_RESERVED(101),
     RESERVED(102),

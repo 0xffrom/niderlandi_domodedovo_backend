@@ -1,13 +1,13 @@
-package com.otherapi.service.elements
+package com.niderlandi.domodedovo.provider.elements
 
-import com.niderlandi.domodedovo.data.BookingFee
-import com.niderlandi.domodedovo.data.BookingStatus
-import com.niderlandi.domodedovo.data.ServiceFormPage
-import com.niderlandi.domodedovo.data.ServiceProviderHeader
-import com.otherapi.service.Status
-import com.otherapi.service.ValidationStatus
-import com.otherapi.service.booking.Booking
-import com.otherapi.service.booking.BookingRepository
+import com.niderlandi.domodedovo.domain.data.BookingFee
+import com.niderlandi.domodedovo.domain.data.ServiceFormPage
+import com.niderlandi.domodedovo.domain.data.ServiceProviderHeader
+import com.niderlandi.domodedovo.domain.data.enums.BookingStatus
+import com.niderlandi.domodedovo.domain.data.enums.Status
+import com.niderlandi.domodedovo.domain.data.enums.ValidationStatus
+import com.niderlandi.domodedovo.domain.entity.Booking
+import com.niderlandi.domodedovo.provider.booking.BookingRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
@@ -23,10 +23,13 @@ class ElementsService {
         serviceProviderHeader: ServiceProviderHeader,
         serviceFormPage: ServiceFormPage? = null
     ): Pair<ValidationStatus, ServiceFormPage?> {
-        when (serviceFormPage == null) {
-            true -> return Pair(ValidationStatus.OK, null)
+        return when (serviceFormPage == null) {
+            true -> Pair(ValidationStatus.OK, null)
             false -> {
-                TODO("Тут проводим валидация взависимости от формы.")
+                when (ValidatorFormPage()(serviceFormPage)) {
+                    true -> Pair(ValidationStatus.OK, serviceFormPage)
+                    else -> Pair(ValidationStatus.ERROR, serviceFormPage)
+                }
             }
         }
     }
@@ -35,7 +38,7 @@ class ElementsService {
         serviceProviderHeader: ServiceProviderHeader,
         serviceFormPage: ServiceFormPage? = null
     ): ServiceFormPage {
-        TODO("Вовзращаем форму")
+        return MockElement().serviceFormPage
     }
 
     fun prebookService(serviceProviderHeader: ServiceProviderHeader, serviceFormPage: ServiceFormPage?): BookingStatus {
@@ -52,7 +55,7 @@ class ElementsService {
         )
     }
 
-    fun storeBookingElements(serviceProviderHeader: ServiceProviderHeader, serviceFormPage: ServiceFormPage) {
+    fun storeBookingElements(serviceProviderHeader: ServiceProviderHeader, serviceFormPage: ServiceFormPage?) {
         val id = serviceProviderHeader.bookingId
 
         when (bookingRepository == null) {
